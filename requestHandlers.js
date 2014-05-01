@@ -85,7 +85,7 @@ function login(response, request) {
 
 function test(response, request) {
 	console.log("Request handler 'show' was called."); 
-	fs.readFile('./external.html', function read(err, data){
+	fs.readFile('./templates/external.html', function read(err, data){
 		if (err){
 			throw err
 		}
