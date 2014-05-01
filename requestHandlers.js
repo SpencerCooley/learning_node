@@ -2,7 +2,7 @@ var exec = require("child_process").exec;
 var querystring = require("querystring");
 var fs = require("fs");
 var formidable = require("formidable");
-
+var googleapis = require("googleapis");
 
 
 
@@ -47,16 +47,15 @@ function upload(response, request) {
     	}
     });
 
-    response.writeHead(200, {"Content-Type": "text/html"});
-    response.write("received image:<br/>");
-    response.write("<style>#the_video{width:100%}</style><video id='the_video'  controls><source src='/show' type='video/mp4'><source src='movie.ogg' type='video/ogg'>Your browser does not support the video tag.</video>");
+    response.writeHead(200, {"Content-Type": "text/html", "Accept-Ranges": "bytes"});
+    response.write("<style>#the_video{width:1000px;}</style><video id='the_video'  controls='controls'><source src='/show' type='video/mp4'>Your browser does not support the video tag.</video>");
     response.end();
 });
 
 }
 
 
-
+//you need to make this funciton serve a file from google drive instead of locally with fs
 function show(response, request) {
 	console.log("Request handler 'show' was called."); 
 	fs.readFile("/tmp/test.mov", "binary", function(error, file) {
@@ -76,7 +75,18 @@ function show(response, request) {
 }
 
 
+
+function test(response, request) {
+	console.log("Request handler 'show' was called."); 
+	response.writeHead(500, {"Content-Type": "text/plain"});
+	response.write("isolated test environment");
+	response.end(); 
+}
+
+
+
 exports.start = start;
 exports.upload = upload;
 exports.show = show;
+exports.test = test;
 
