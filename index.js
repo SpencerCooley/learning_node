@@ -8,7 +8,7 @@ var requestHandlers = require("./requestHandlers");
 //this is just like urls.py in django. 
 //maps url to controller function. 
 var handle = {}
-handle["/"] = requestHandlers.start; 
+handle["/"] = requestHandlers.login; 
 handle["/start"] = requestHandlers.start;
 handle["/upload"] = requestHandlers.upload;
 handle["/show"] = requestHandlers.show;

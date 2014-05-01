@@ -75,13 +75,27 @@ function show(response, request) {
 }
 
 
+function login(response, request) {
+	console.log("Request handler 'show' was called."); 
+	response.writeHead(500, {"Content-Type": "text/plain"});
+	response.write("interface for oauth login here");
+	response.end(); 
+}
+
 
 function test(response, request) {
 	console.log("Request handler 'show' was called."); 
-	response.writeHead(500, {"Content-Type": "text/plain"});
-	response.write("isolated test environment");
-	response.end(); 
+	fs.readFile('./external.html', function read(err, data){
+		if (err){
+			throw err
+		}
+		content = data
+		response.writeHead(500, {"Content-Type": "text/html"});
+		response.write(content);
+		response.end();
+	});
 }
+
 
 
 
@@ -89,4 +103,5 @@ exports.start = start;
 exports.upload = upload;
 exports.show = show;
 exports.test = test;
+exports.login = login;
 
