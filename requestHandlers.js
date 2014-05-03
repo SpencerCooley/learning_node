@@ -4,6 +4,7 @@ var fs = require("fs");
 var formidable = require("formidable");
 var googleapis = require("googleapis");
 var url = require('url');
+var handlebars = require('handlebars');
 
 
 //this is sort of like a view file in django, or a controller in rails. 
@@ -93,7 +94,7 @@ function login(response, request) {
 
 
 
-function test(response, request) {
+function list(response, request) {
 
 	var queryData = url.parse(request.url, true).query;
 
@@ -108,17 +109,42 @@ function test(response, request) {
 	      .drive.files.list()
 	      .withAuthClient(auth)
 	      .execute(function(err, result) {
+	        
 	        if (err){
 	        	response.writeHead(200, {"Content-Type": "application/json"});
 				response.write(JSON.stringify(err));
 				response.end()
 	        }
 	        else{
-	        	console.log(result)
-		        response.writeHead(200, {"Content-Type": "application/json"});
-				response.write(JSON.stringify(result));
-				response.end()
+	        	console.log(result.items)
+	        	var videos = []
+	        	var files = result.items;
+				
+				for (var i=0;i<files.length;i++)
+				{
+					if(files[i].mimeType == "video/mp4"){
+						videos.push(files[i])
+					}
+				}
+				
+				fs.readFile('./templates/list.html','utf8', function read(err, data){
+					if (err){
+						throw err
+					}
+					console.log(videos)
+					var content = data
+					var theTemplate = handlebars.compile(content)
+					var context = {'some':'data'}
+
+			        response.writeHead(200, {"Content-Type": "text/html"});
+					response.write(theTemplate({'videos' : videos}));
+					response.end()
+				
+				});
+				
 	        }
+
+
 	      	
 	      });
 
@@ -132,6 +158,6 @@ function test(response, request) {
 exports.dash = dash;
 exports.upload = upload;
 exports.show = show;
-exports.test = test;
+exports.list = list;
 exports.login = login;
 

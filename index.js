@@ -12,7 +12,7 @@ handle["/"] = requestHandlers.login;
 handle["/dash"] = requestHandlers.dash;
 handle["/upload"] = requestHandlers.upload;
 handle["/show"] = requestHandlers.show;
-handle["/test"] = requestHandlers.test;
+handle["/list"] = requestHandlers.list;
 handle["/login"] = requestHandlers.login;
 
 server.start(router.route, handle);
