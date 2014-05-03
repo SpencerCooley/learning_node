@@ -9,9 +9,10 @@ var requestHandlers = require("./requestHandlers");
 //maps url to controller function. 
 var handle = {}
 handle["/"] = requestHandlers.login; 
-handle["/start"] = requestHandlers.start;
+handle["/dash"] = requestHandlers.dash;
 handle["/upload"] = requestHandlers.upload;
 handle["/show"] = requestHandlers.show;
 handle["/test"] = requestHandlers.test;
+handle["/login"] = requestHandlers.login;
 
 server.start(router.route, handle);

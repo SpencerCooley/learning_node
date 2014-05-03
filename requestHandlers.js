@@ -3,13 +3,13 @@ var querystring = require("querystring");
 var fs = require("fs");
 var formidable = require("formidable");
 var googleapis = require("googleapis");
-
+var url = require('url');
 
 
 //this is sort of like a view file in django, or a controller in rails. 
 //it defines the functions that requests are routed to to be processed. 
 
-function start(response, request) {
+function dash(response, request) {
 
 	console.log("Request handler 'start' was called.");
 	var body = '<html>'+
@@ -77,14 +77,6 @@ function show(response, request) {
 
 function login(response, request) {
 	console.log("Request handler 'show' was called."); 
-	response.writeHead(500, {"Content-Type": "text/plain"});
-	response.write("interface for oauth login here");
-	response.end(); 
-}
-
-
-function test(response, request) {
-	console.log("Request handler 'show' was called."); 
 	fs.readFile('./templates/external.html', function read(err, data){
 		if (err){
 			throw err
@@ -99,7 +91,45 @@ function test(response, request) {
 
 
 
-exports.start = start;
+
+
+function test(response, request) {
+
+	var queryData = url.parse(request.url, true).query;
+
+	var auth = new googleapis.OAuth2Client();
+	auth.setCredentials({
+	  access_token: queryData.token
+	});
+
+	googleapis.discover('drive', 'v2').execute(function(err, client) {
+  	  // insertion example
+	  client
+	      .drive.files.list()
+	      .withAuthClient(auth)
+	      .execute(function(err, result) {
+	        if (err){
+	        	response.writeHead(200, {"Content-Type": "application/json"});
+				response.write(JSON.stringify(err));
+				response.end()
+	        }
+	        else{
+	        	console.log(result)
+		        response.writeHead(200, {"Content-Type": "application/json"});
+				response.write(JSON.stringify(result));
+				response.end()
+	        }
+	      	
+	      });
+
+	});
+
+}
+
+
+
+
+exports.dash = dash;
 exports.upload = upload;
 exports.show = show;
 exports.test = test;
