@@ -97,6 +97,7 @@ function login(response, request) {
 function list(response, request) {
 
 	var queryData = url.parse(request.url, true).query;
+	
 
 	var auth = new googleapis.OAuth2Client();
 	auth.setCredentials({
@@ -135,21 +136,13 @@ function list(response, request) {
 					var content = data
 					var theTemplate = handlebars.compile(content)
 					var context = {'some':'data'}
-
 			        response.writeHead(200, {"Content-Type": "text/html"});
 					response.write(theTemplate({'videos' : videos}));
 					response.end()
-				
-				});
-				
+				});	
 	        }
-
-
-	      	
 	      });
-
 	});
-
 }
 
 

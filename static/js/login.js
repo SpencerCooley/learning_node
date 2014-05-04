@@ -27,28 +27,22 @@ $('#login_button').click(function(){
                 var theRedirectUrl = win.document.URL
                 if (win.document.URL.indexOf(redirect) != -1) {
                     window.clearInterval(pollTimer);
-                    var url =   win.document.URL;
-                    acToken =   gup(url, 'access_token');
-                    tokenType = gup(url, 'token_type');
-                    expiresIn = gup(url, 'expires_in');
+                    
+           
 
                     win.close();
 
-                    window.location = theRedirectUrl;
+                    window.location = theRedirectUrl
+                    	.replace('#', '?')
+                    	.replace('dash', 'list')
+                    	.replace('access_token', 'token');
+
 
                 }
             } catch(e) {
             
             }
         }, 100);
-
-
-
-
-
-
-
-
 
 });
 
