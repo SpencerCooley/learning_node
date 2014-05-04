@@ -65,7 +65,7 @@ function list(response, request) {
 					console.log(videos)
 					var content = data
 					var theTemplate = handlebars.compile(content)
-					var context = {'some':'data'}
+				
 			        response.writeHead(200, {"Content-Type": "text/html"});
 					response.write(theTemplate({'videos' : videos}));
 					response.end()
