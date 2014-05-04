@@ -10,8 +10,6 @@ var requestHandlers = require("./requestHandlers");
 var handle = {}
 handle["/"] = requestHandlers.login; 
 handle["/dash"] = requestHandlers.dash;
-handle["/upload"] = requestHandlers.upload;
-handle["/show"] = requestHandlers.show;
 handle["/list"] = requestHandlers.list;
 handle["/login"] = requestHandlers.login;
 
