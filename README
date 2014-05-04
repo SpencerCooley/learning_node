@@ -2,6 +2,8 @@ Just a simple demonstration of a node.js and google drive api integration
 
 lets you login with your google account and then simply lists out the mp4 files in your drive. 
 
+Once logged in it becomes pretty simple to start making queries for google data since I am using the google node.js api client found here https://github.com/google/google-api-nodejs-client/
+
 clone this repo. 
 
 cd learning_node
@@ -14,13 +16,14 @@ I made a sample google account that already has videos loaded.
 user spencerdevel 
 pass: helloworld11
 
-Yeah I know this is public, but it is just a dummy email account so don't really care. 
+Yeah I know this is public, but it is just a dummy email account used for demo so don't really care. 
 
 
-Technology being used
-bootstrap
-node.js
-handlebars.js
+Tech being used
+bootstrap  http://getbootstrap.com/
+node.js  http://nodejs.org/
+handlebars.js http://handlebarsjs.com/
 google api client https://github.com/google/google-api-nodejs-client/
 
-The google api client is pretty straight forward and does a lot of the api query work for you.
+
+
