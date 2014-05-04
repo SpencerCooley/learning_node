@@ -14,12 +14,19 @@
       
       {{#each videos}}
       <div class="row">
-          <h1>{{originalFilename}}</h1>
-          <video width="320" height="240" controls>
+        <div class="col-md-8">
+          <video class="the_vid" controls>
             <source src="{{webContentLink}}" type="video/mp4">
             <source src="{{webContentLink}}" type="video/ogg">
           Your browser does not support the video tag.
           </video>
+        </div>
+        <div class="col-md-4">
+          <h1>{{originalFilename}}</h1>
+        </div>
+
+          
+          
       </div>
       <hr>
       {{/each}}
